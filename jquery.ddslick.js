@@ -31,6 +31,7 @@
         imagePosition: "left",
         showSelectedHTML: true,
         clickOffToClose: true,
+		embedCSS: true,
         onSelected: function () { }
     },
 
@@ -55,15 +56,15 @@
                 '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
                 '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
 
-    //CSS styles are only added once.
-    if ($('#css-ddslick').length <= 0) {
-        $(ddslickCSS).appendTo('head');
-    }
-
     //Public methods 
     methods.init = function (options) {
         //Preserve the original defaults by passing an empty object as the target
         var options = $.extend({}, defaults, options);
+
+		//CSS styles are only added once.
+	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
+	        $(ddslickCSS).appendTo('head');
+	    }
 
         //Apply on all selected elements
         return this.each(function () {
