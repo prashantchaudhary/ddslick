@@ -147,7 +147,7 @@
                 }
                 else {
                     var index = (options.defaultSelectedIndex !== null && options.defaultSelectedIndex >= 0 && options.defaultSelectedIndex < options.data.length) ? options.defaultSelectedIndex : 0;
-                    selectIndex(obj, index);
+                    selectIndex(obj, index, false);
                 }
 
                 //EVENTS
@@ -220,7 +220,12 @@
     };
 
     //Private: Select index
-    function selectIndex(obj, index) {
+    function selectIndex(obj, index, doCallback) {
+
+        // If true, fire the onSelected callback; true by if not specified
+        if (typeof doCallback === 'undefined') {
+            doCallback = true;
+        }
 
         //Get plugin data
         var pluginData = obj.data('ddslick');
@@ -270,7 +275,7 @@
         adjustSelectedHeight(obj);
 
         //Callback function on selection
-        if (typeof settings.onSelected == 'function') {
+        if (doCallback && typeof settings.onSelected == 'function') {
             settings.onSelected.call(this, pluginData);
         }
     }
