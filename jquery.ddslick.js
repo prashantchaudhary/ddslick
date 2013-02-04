@@ -173,7 +173,7 @@
     //Public method to select an option by its index
     methods.select = function (options) {
         return this.each(function () {
-            if (options.index)
+            if (options.index!==undefined)
                 selectIndex($(this), options.index);
         });
     }
