@@ -54,12 +54,17 @@
                 '.dd-option-selected { background:#f6f6f6; }' +
                 '.dd-option-image, .dd-selected-image { vertical-align:middle; float:left; margin-right:5px; max-width:64px;}' +
                 '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
-                '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
+                '.dd-container{ position:relative;} .dd-selected-text { font-weight:bold}</style>';
+
+    //CSS styles are only added once.
+    if ($('#css-ddslick').length <= 0) {
+        $(ddslickCSS).appendTo('head');
+    }
 
     //Public methods 
     methods.init = function (options) {
         //Preserve the original defaults by passing an empty object as the target
-        var options = $.extend({}, defaults, options);
+        options = $.extend({}, defaults, options);
 
 		//CSS styles are only added once.
 	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
@@ -101,8 +106,8 @@
                 obj.addClass('dd-container').append(ddSelectHtml).append(ddOptionsHtml);
 
                 //Get newly created ddOptions and ddSelect to manipulate
-                var ddSelect = obj.find('.dd-select'),
-                    ddOptions = obj.find('.dd-options');
+                ddSelect = obj.find('.dd-select');
+                ddOptions = obj.find('.dd-options');
 
                 //Set widths
                 ddOptions.css({ width: options.width });
@@ -110,7 +115,7 @@
                 obj.css({ width: options.width });
 
                 //Set height
-                if (options.height != null)
+                if (options.height !== null)
                     ddOptions.css({ height: options.height, overflow: 'auto' });
 
                 //Add ddOptions to the container. Replace with template engine later.
@@ -133,18 +138,16 @@
                     selectedIndex: -1,
                     selectedItem: null,
                     selectedData: null
-                }
+                };
                 obj.data('ddslick', pluginData);
 
                 //Check if needs to show the select text, otherwise show selected or default selection
-                if (options.selectText.length > 0 && options.defaultSelectedIndex == null) {
+                if (options.selectText.length > 0 && options.defaultSelectedIndex === null) {
                     obj.find('.dd-selected').html(options.selectText);
                 }
                 else {
-                    var index = (options.defaultSelectedIndex != null && options.defaultSelectedIndex >= 0 && options.defaultSelectedIndex < options.data.length)
-                                ? options.defaultSelectedIndex
-                                : 0;
-                    selectIndex(obj, index);
+                    var index = (options.defaultSelectedIndex !== null && options.defaultSelectedIndex >= 0 && options.defaultSelectedIndex < options.data.length) ? options.defaultSelectedIndex : 0;
+                    selectIndex(obj, index, false);
                 }
 
                 //EVENTS
@@ -176,7 +179,7 @@
             if (options.index!==undefined)
                 selectIndex($(this), options.index);
         });
-    }
+    };
 
     //Public method to open drop down
     methods.open = function () {
@@ -214,10 +217,15 @@
                 $this.removeData('ddslick').unbind('.ddslick').replaceWith(originalElement);
             }
         });
-    }
+    };
 
     //Private: Select index
-    function selectIndex(obj, index) {
+    function selectIndex(obj, index, doCallback) {
+
+        // If true, fire the onSelected callback; true by if not specified
+        if (typeof doCallback === 'undefined') {
+            doCallback = true;
+        }
 
         //Get plugin data
         var pluginData = obj.data('ddslick');
@@ -267,7 +275,7 @@
         adjustSelectedHeight(obj);
 
         //Callback function on selection
-        if (typeof settings.onSelected == 'function') {
+        if (doCallback && typeof settings.onSelected == 'function') {
             settings.onSelected.call(this, pluginData);
         }
     }
