@@ -59,15 +59,20 @@
     //Public methods 
     methods.init = function (options) {
         //Preserve the original defaults by passing an empty object as the target
+        //The object is used to get global flags like embedCSS.
         var options = $.extend({}, defaults, options);
-
-		//CSS styles are only added once.
+        
+        //CSS styles are only added once.
 	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
 	        $(ddslickCSS).appendTo('head');
 	    }
 
         //Apply on all selected elements
         return this.each(function () {
+            //Preserve the original defaults by passing an empty object as the target 
+            //The object is used to save drop-down's corresponding settings and data.
+            var options = $.extend({}, defaults, options);
+            
             var obj = $(this),
                 data = obj.data('ddslick');
             //If the plugin has not been initialized yet
