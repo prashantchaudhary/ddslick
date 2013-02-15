@@ -180,6 +180,8 @@
         return this.each(function () {
             if (options.index!==undefined)
                 selectIndex($(this), options.index);
+            if (options.id)
+                selectId($(this), options.id);
         });
     }
 
@@ -219,6 +221,14 @@
                 $this.removeData('ddslick').unbind('.ddslick').replaceWith(originalElement);
             }
         });
+    }
+    
+     //Private: Select id
+    function selectId(obj, id) {
+    
+       var index = obj.find(".dd-option-value[value= '" + id + "']").parents("li").prevAll().length;
+       selectIndex(obj, index);
+       
     }
 
     //Private: Select index
