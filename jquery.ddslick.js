@@ -105,6 +105,9 @@
                 //Add classes and append ddSelectHtml & ddOptionsHtml to the container
                 obj.addClass('dd-container').append(ddSelectHtml).append(ddOptionsHtml);
 
+                // Inherit name attribute from original element
+                obj.find("input.dd-selected-value").attr("name", $(original).attr("name"))
+
                 //Get newly created ddOptions and ddSelect to manipulate
                 var ddSelect = obj.find('.dd-select'),
                     ddOptions = obj.find('.dd-options');
