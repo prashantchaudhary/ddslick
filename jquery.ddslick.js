@@ -57,10 +57,10 @@
                 '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
 
     //Public methods 
-    methods.init = function (options) {
+    methods.init = function (userOptions) {
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
-        var options = $.extend({}, defaults, options);
+        var options = $.extend({}, defaults, userOptions);
         
         //CSS styles are only added once.
 	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
@@ -71,7 +71,7 @@
         return this.each(function () {
             //Preserve the original defaults by passing an empty object as the target 
             //The object is used to save drop-down's corresponding settings and data.
-            var options = $.extend({}, defaults, options);
+            var options = $.extend({}, defaults, userOptions);
             
             var obj = $(this),
                 data = obj.data('ddslick');
