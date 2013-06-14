@@ -1,6 +1,6 @@
 ﻿//Title: Custom DropDown plugin by PC
 //Documentation: http://designwithpc.com/Plugins/ddslick
-//Author: PC 
+//Author: PC
 //Website: http://designwithpc.com
 //Twitter: http://twitter.com/chaudharyp
 
@@ -56,12 +56,12 @@
                 '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
                 '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
 
-    //Public methods 
+    //Public methods
     methods.init = function (options) {
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
         var options = $.extend({}, defaults, options);
-        
+
         //CSS styles are only added once.
 	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
 	        $(ddslickCSS).appendTo('head');
@@ -69,16 +69,16 @@
 
         //Apply on all selected elements
         return this.each(function () {
-            //Preserve the original defaults by passing an empty object as the target 
+            //Preserve the original defaults by passing an empty object as the target
             //The object is used to save drop-down's corresponding settings and data.
-            var options = $.extend({}, defaults, options);
-            
+            var clonedOptions = $.extend({}, options);
+
             var obj = $(this),
                 data = obj.data('ddslick');
             //If the plugin has not been initialized yet
             if (!data) {
 
-                var ddSelect = [], ddJson = options.data;
+                var ddSelect = [], ddJson = clonedOptions.data;
 
                 //Get data from HTML select options
                 obj.find('option').each(function () {
@@ -93,9 +93,9 @@
                 });
 
                 //Update Plugin data merging both HTML select data and JSON data for the dropdown
-                if (options.keepJSONItemsOnTop)
-                    $.merge(options.data, ddSelect);
-                else options.data = $.merge(ddSelect, options.data);
+                if (clonedOptions.keepJSONItemsOnTop)
+                    $.merge(clonedOptions.data, ddSelect);
+                else clonedOptions.data = $.merge(ddSelect, clonedOptions.data);
 
                 //Replace HTML select with empty placeholder, keep the original
                 var original = obj, placeholder = $('<div id="' + obj.attr('id') + '"></div>');
@@ -113,21 +113,21 @@
                     ddOptions = obj.find('.dd-options');
 
                 //Set widths
-                ddOptions.css({ width: options.width });
-                ddSelect.css({ width: options.width, background: options.background });
-                obj.css({ width: options.width });
+                ddOptions.css({ width: clonedOptions.width });
+                ddSelect.css({ width: clonedOptions.width, background: clonedOptions.background });
+                obj.css({ width: clonedOptions.width });
 
                 //Set height
-                if (options.height != null)
-                    ddOptions.css({ height: options.height, overflow: 'auto' });
+                if (clonedOptions.height != null)
+                    ddOptions.css({ height: clonedOptions.height, overflow: 'auto' });
 
                 //Add ddOptions to the container. Replace with template engine later.
-                $.each(options.data, function (index, item) {
-                    if (item.selected) options.defaultSelectedIndex = index;
+                $.each(clonedOptions.data, function (index, item) {
+                    if (item.selected) clonedOptions.defaultSelectedIndex = index;
                     ddOptions.append('<li>' +
                         '<a class="dd-option">' +
                             (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
-                            (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
+                            (item.imageSrc ? ' <img class="dd-option-image' + (clonedOptions.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
                             (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
                             (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
                         '</a>' +
@@ -136,7 +136,7 @@
 
                 //Save plugin data.
                 var pluginData = {
-                    settings: options,
+                    settings: clonedOptions,
                     original: original,
                     selectedIndex: -1,
                     selectedItem: null,
@@ -145,12 +145,12 @@
                 obj.data('ddslick', pluginData);
 
                 //Check if needs to show the select text, otherwise show selected or default selection
-                if (options.selectText.length > 0 && options.defaultSelectedIndex == null) {
-                    obj.find('.dd-selected').html(options.selectText);
+                if (clonedOptions.selectText.length > 0 && clonedOptions.defaultSelectedIndex == null) {
+                    obj.find('.dd-selected').html(clonedOptions.selectText);
                 }
                 else {
-                    var index = (options.defaultSelectedIndex != null && options.defaultSelectedIndex >= 0 && options.defaultSelectedIndex < options.data.length)
-                                ? options.defaultSelectedIndex
+                    var index = (clonedOptions.defaultSelectedIndex != null && clonedOptions.defaultSelectedIndex >= 0 && clonedOptions.defaultSelectedIndex < clonedOptions.data.length)
+                                ? clonedOptions.defaultSelectedIndex
                                 : 0;
                     selectIndex(obj, index);
                 }
@@ -167,7 +167,7 @@
                 });
 
                 //Click anywhere to close
-                if (options.clickOffToClose) {
+                if (clonedOptions.clickOffToClose) {
                     ddOptions.addClass('dd-click-off-close');
                     obj.on('click.ddslick', function (e) { e.stopPropagation(); });
                     $('body').on('click', function () {
@@ -225,13 +225,13 @@
             }
         });
     }
-    
+
      //Private: Select id
     function selectId(obj, id) {
-    
+
        var index = obj.find(".dd-option-value[value= '" + id + "']").parents("li").prevAll().length;
        selectIndex(obj, index);
-       
+
     }
 
     //Private: Select index
