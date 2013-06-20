@@ -98,7 +98,7 @@
                 else options.data = $.merge(ddSelect, options.data);
 
                 //Replace HTML select with empty placeholder, keep the original
-                var original = obj, placeholder = $('<div id="' + obj.attr('id') + '"></div>');
+                var original = obj, placeholder = $('<div').attr('id', obj.attr('id') + '-dd-placeholder');
                 obj.replaceWith(placeholder);
                 obj = placeholder;
 
@@ -106,7 +106,9 @@
                 obj.addClass('dd-container').append(ddSelectHtml).append(ddOptionsHtml);
 
                 // Inherit name attribute from original element
-                obj.find("input.dd-selected-value").attr("name", $(original).attr("name"))
+                obj.find("input.dd-selected-value")
+                    .attr("id", $(original).attr("id"))
+                    .attr("name", $(original).attr("name"));
 
                 //Get newly created ddOptions and ddSelect to manipulate
                 var ddSelect = obj.find('.dd-select'),
