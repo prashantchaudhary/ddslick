@@ -57,10 +57,10 @@
                 '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
 
     //Public methods 
-    methods.init = function (options) {
+    methods.init = function (userOptions) {
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
-        var options = $.extend({}, defaults, options);
+        var options = $.extend({}, defaults, userOptions);
         
         //CSS styles are only added once.
 	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
@@ -71,7 +71,7 @@
         return this.each(function () {
             //Preserve the original defaults by passing an empty object as the target 
             //The object is used to save drop-down's corresponding settings and data.
-            var options = $.extend({}, defaults, options);
+            var options = $.extend({}, defaults, userOptions);
             
             var obj = $(this),
                 data = obj.data('ddslick');
@@ -98,7 +98,7 @@
                 else options.data = $.merge(ddSelect, options.data);
 
                 //Replace HTML select with empty placeholder, keep the original
-                var original = obj, placeholder = $('<div id="' + obj.attr('id') + '"></div>');
+                var original = obj, placeholder = $('<div').attr('id', obj.attr('id') + '-dd-placeholder');
                 obj.replaceWith(placeholder);
                 obj = placeholder;
 
@@ -106,7 +106,9 @@
                 obj.addClass('dd-container').append(ddSelectHtml).append(ddOptionsHtml);
 
                 // Inherit name attribute from original element
-                obj.find("input.dd-selected-value").attr("name", $(original).attr("name"))
+                obj.find("input.dd-selected-value")
+                    .attr("id", $(original).attr("id"))
+                    .attr("name", $(original).attr("name"));
 
                 //Get newly created ddOptions and ddSelect to manipulate
                 var ddSelect = obj.find('.dd-select'),
