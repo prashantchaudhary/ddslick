@@ -171,6 +171,7 @@
                     ddOptions.addClass('dd-click-off-close');
                     obj.on('click.ddslick', function (e) { e.stopPropagation(); });
                     $('body').on('click', function () {
+                    $('.dd-open').removeClass('dd-open');
                         $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
                     });
                 }
@@ -301,12 +302,15 @@
         //Close all open options (multiple plugins) on the page
         $('.dd-click-off-close').not(ddOptions).slideUp(50);
         $('.dd-pointer').removeClass('dd-pointer-up');
+        $this.removeClass('dd-open');
 
         if (wasOpen) {
             ddOptions.slideUp('fast');
             ddPointer.removeClass('dd-pointer-up');
+            $this.removeClass('dd-open');
         }
         else {
+            $this.addClass('dd-open');
             ddOptions.slideDown('fast');
             ddPointer.addClass('dd-pointer-up');
         }
@@ -318,6 +322,7 @@
     //Private: Close the drop down options
     function close(obj) {
         //Close drop down and adjust pointer direction
+        obj.find('.dd-select').removeClass('dd-open');
         obj.find('.dd-options').slideUp(50);
         obj.find('.dd-pointer').removeClass('dd-pointer-up').removeClass('dd-pointer-up');
     }
