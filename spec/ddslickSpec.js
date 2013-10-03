@@ -2,20 +2,27 @@ describe('ddSlick', function(){
   context('using <select> to render', function(){
     beforeEach(function(){
       buildDropdown();
+
+      $('#the-dropdown').ddslick({
+        imagePosition: "right"
+      });
+
+      subject = $('#the-dropdown-dd-placeholder');
     });
 
     afterEach(function(){
       $("#the-dropdown").remove();
+      $("#the-dropdown-dd-placeholder").remove();
     });
     
-    
-    it('does some stuff', function(){
-      var subject = $('#the-dropdown');
-      subject.ddslick({
-        imagePosition: "right"
-      });
-      console.log(subject);
+    it('creates the placeholder div', function(){
+      expect(subject).toBeDefined();
     });
+
+    it('should have a dd-select element', function(){
+      expect(subject.find('.dd-select').length).toBeGreaterThan(0);
+    });
+    
   });
 });
 
