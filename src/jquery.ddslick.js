@@ -339,7 +339,12 @@
         var descriptionSelected = obj.find('.dd-selected-description');
         var imgSelected = obj.find('.dd-selected-image');
         if (descriptionSelected.length <= 0 && imgSelected.length > 0) {
-            obj.find('.dd-selected-text').css('lineHeight', lSHeight);
+            // obj.find('.dd-selected-text').css('lineHeight', lSHeight);
+
+            obj.css('lineHeight', lSHeight);
+            obj.find('.dd-selected-text').css('display', 'inline-block');
+            obj.find('.dd-selected-text').css('vertial-align', 'middle');
+            obj.find('.dd-selected-text').css('lineHeight', 'normal');
         }
     }
 
