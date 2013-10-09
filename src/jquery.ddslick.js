@@ -54,7 +54,7 @@
                 '.dd-option-selected { background:#f6f6f6; }' +
                 '.dd-option-image, .dd-selected-image { vertical-align:middle; float:left; margin-right:5px; max-width:64px;}' +
                 '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
-                '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
+                '.dd-container{ position:relative;} .dd-selected-text { font-weight:bold}</style>';
 
     //Public methods 
     methods.init = function (userOptions) {
@@ -351,7 +351,10 @@
             var descriptionOption = $this.find('.dd-option-description');
             var imgOption = obj.find('.dd-option-image');
             if (descriptionOption.length <= 0 && imgOption.length > 0) {
-                $this.find('.dd-option-text').css('lineHeight', lOHeight);
+              $this.css('lineHeight', lOHeight);
+              $this.find('.dd-option-text').css('display', 'inline-block');
+              $this.find('.dd-option-text').css('vertial-align', 'middle');
+              $this.find('.dd-option-text').css('lineHeight', 'normal');
             }
         });
     }
