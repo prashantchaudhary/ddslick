@@ -79,6 +79,7 @@
             if (!data) {
 
                 var ddSelect = [], ddJson = options.data;
+		options.data = [];
 
                 //Get data from HTML select options
                 obj.find('option').each(function () {
