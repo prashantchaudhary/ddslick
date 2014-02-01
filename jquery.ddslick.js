@@ -79,6 +79,7 @@
             if (!data) {
 
                 var ddSelect = [], ddJson = options.data;
+		options.data = [];
 
                 //Get data from HTML select options
                 obj.find('option').each(function () {
@@ -113,6 +114,8 @@
                 //Get newly created ddOptions and ddSelect to manipulate
                 var ddSelect = obj.find('.dd-select'),
                     ddOptions = obj.find('.dd-options');
+
+                ddSelect.find('input').attr('name', original.attr('name'));
 
                 //Set widths
                 ddOptions.css({ width: options.width });
