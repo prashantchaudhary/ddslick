@@ -115,6 +115,8 @@
                 var ddSelect = obj.find('.dd-select'),
                     ddOptions = obj.find('.dd-options');
 
+                ddSelect.find('input').attr('name', original.attr('name'));
+
                 //Set widths
                 ddOptions.css({ width: options.width });
                 ddSelect.css({ width: options.width, background: options.background });
