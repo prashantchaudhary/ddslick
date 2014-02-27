@@ -64,7 +64,17 @@
         
         //CSS styles are only added once.
 	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
-	        $(ddslickCSS).appendTo('head');
+	        // Special case for Windows 8 Apps
+	        if (typeof MSApp === 'undefined') {
+	            // Not windows 8
+	            $(ddslickCSS).appendTo('head');
+	        }
+	        else {
+	            // Windows 8
+	            MSApp.execUnsafeLocalFunction(function () {
+	                $(ddslickCSS).appendTo('head');
+	            });
+	        }
 	    }
 
         //Apply on all selected elements
