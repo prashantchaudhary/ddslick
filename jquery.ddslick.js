@@ -86,6 +86,7 @@
                     ddSelect.push({
                         text: $.trim($this.text()),
                         value: $this.val(),
+                        name: $this.attr('name'),
                         selected: $this.is(':selected'),
                         description: thisData.description,
                         imageSrc: thisData.imagesrc //keep it lowercase for HTML5 data-attributes
@@ -128,7 +129,7 @@
                     if (item.selected) options.defaultSelectedIndex = index;
                     ddOptions.append('<li>' +
                         '<a class="dd-option">' +
-                            (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
+                            (item.value || item.name ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" name="' + item.name + '" />' : '') +
                             (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
                             (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
                             (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
