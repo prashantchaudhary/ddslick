@@ -1,4 +1,8 @@
-
+//Title: Custom DropDown plugin by PC
+//Documentation: http://designwithpc.com/Plugins/ddslick
+//Author: PC
+//Website: http://designwithpc.com
+//Twitter: http://twitter.com/chaudharyp
 (function ($) {
 
     $.fn.ddslick = function (method) {
