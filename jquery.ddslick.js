@@ -1,8 +1,3 @@
-﻿//Title: Custom DropDown plugin by PC
-//Documentation: http://designwithpc.com/Plugins/ddslick
-//Author: PC 
-//Website: http://designwithpc.com
-//Twitter: http://twitter.com/chaudharyp
 
 (function ($) {
 
@@ -31,7 +26,7 @@
         imagePosition: "left",
         showSelectedHTML: true,
         clickOffToClose: true,
-		embedCSS: true,
+    embedCSS: true,
         onSelected: function () { }
     },
 
@@ -56,26 +51,23 @@
                 '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
                 '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
 
-    //Public methods 
+    //Public methods
     methods.init = function (userOptions) {
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
         var options = $.extend({}, defaults, userOptions);
-        
-        //replace name attribute in selected input tag
-        ddSelectHtml = ddSelectHtml.replace('{{name}}', options.name || '');
-        
+
         //CSS styles are only added once.
-	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
-	        $(ddslickCSS).appendTo('head');
-	    }
+      if ($('#css-ddslick').length <= 0 && options.embedCSS) {
+          $(ddslickCSS).appendTo('head');
+      }
 
         //Apply on all selected elements
         return this.each(function () {
-            //Preserve the original defaults by passing an empty object as the target 
+            //Preserve the original defaults by passing an empty object as the target
             //The object is used to save drop-down's corresponding settings and data.
             var options = $.extend({}, defaults, userOptions);
-            
+
             var obj = $(this),
                 data = obj.data('ddslick');
             //If the plugin has not been initialized yet
@@ -106,8 +98,11 @@
                 obj.replaceWith(placeholder);
                 obj = placeholder;
 
+                //replace name attribute in selected input tag
+                var ddSelectHtmlStr = ddSelectHtml.replace('{{name}}', options.name || '');
+
                 //Add classes and append ddSelectHtml & ddOptionsHtml to the container
-                obj.addClass('dd-container').append(ddSelectHtml).append(ddOptionsHtml);
+                obj.addClass('dd-container').append(ddSelectHtmlStr).append(ddOptionsHtml);
 
                 // Inherit name attribute from original element
                 obj.find("input.dd-selected-value")
@@ -232,13 +227,13 @@
             }
         });
     }
-    
+
      //Private: Select id
     function selectId(obj, id) {
-    
+
        var index = obj.find(".dd-option-value[value= '" + id + "']").parents("li").prevAll().length;
        selectIndex(obj, index);
-       
+
     }
 
     //Private: Select index
