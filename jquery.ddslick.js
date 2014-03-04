@@ -35,7 +35,7 @@
         onSelected: function () { }
     },
 
-    ddSelectHtml = '<div class="dd-select"><input class="dd-selected-value" type="hidden" /><a class="dd-selected"></a><span class="dd-pointer dd-pointer-down"></span></div>',
+    ddSelectHtml = '<div class="dd-select"><input class="dd-selected-value" type="hidden" name="{{name}}"/><a class="dd-selected"></a><span class="dd-pointer dd-pointer-down"></span></div>',
     ddOptionsHtml = '<ul class="dd-options"></ul>',
 
     //CSS for ddSlick
@@ -61,6 +61,9 @@
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
         var options = $.extend({}, defaults, userOptions);
+        
+        //replace name attribute in selected input tag
+        ddSelectHtml = ddSelectHtml.replace('{{name}}', options.name || '');
         
         //CSS styles are only added once.
 	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
@@ -129,7 +132,7 @@
                     if (item.selected) options.defaultSelectedIndex = index;
                     ddOptions.append('<li>' +
                         '<a class="dd-option">' +
-                            (item.value || item.name ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" name="' + item.name + '" />' : '') +
+                            (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
                             (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
                             (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
                             (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
