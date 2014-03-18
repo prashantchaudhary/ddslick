@@ -1,4 +1,4 @@
-﻿//Title: Custom DropDown plugin by PC
+//Title: Custom DropDown plugin by PC
 //Documentation: http://designwithpc.com/Plugins/ddslick
 //Author: PC 
 //Website: http://designwithpc.com
@@ -31,7 +31,7 @@
         imagePosition: "left",
         showSelectedHTML: true,
         clickOffToClose: true,
-		embedCSS: true,
+        embedCSS: true,
         onSelected: function () { }
     },
 
@@ -61,18 +61,18 @@
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
         var options = $.extend({}, defaults, userOptions);
-        
+
         //CSS styles are only added once.
-	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
-	        $(ddslickCSS).appendTo('head');
-	    }
+        if ($('#css-ddslick').length <= 0 && options.embedCSS) {
+            $(ddslickCSS).appendTo('head');
+        }
 
         //Apply on all selected elements
         return this.each(function () {
             //Preserve the original defaults by passing an empty object as the target 
             //The object is used to save drop-down's corresponding settings and data.
             var options = $.extend({}, defaults, userOptions);
-            
+
             var obj = $(this),
                 data = obj.data('ddslick');
             //If the plugin has not been initialized yet
@@ -98,7 +98,7 @@
                 else options.data = $.merge(ddSelect, options.data);
 
                 //Replace HTML select with empty placeholder, keep the original
-                var original = obj, placeholder = $('<div').attr('id', obj.attr('id') + '-dd-placeholder');
+                var original = obj, placeholder = $('<div>').attr('id', obj.attr('id') + '-dd-placeholder');
                 obj.replaceWith(placeholder);
                 obj = placeholder;
 
@@ -173,7 +173,7 @@
                     ddOptions.addClass('dd-click-off-close');
                     obj.on('click.ddslick', function (e) { e.stopPropagation(); });
                     $('body').on('click', function () {
-                    $('.dd-open').removeClass('dd-open');
+                        $('.dd-open').removeClass('dd-open');
                         $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
                     });
                 }
@@ -184,7 +184,7 @@
     //Public method to select an option by its index
     methods.select = function (options) {
         return this.each(function () {
-            if (options.index!==undefined)
+            if (options.index !== undefined)
                 selectIndex($(this), options.index);
             if (options.id)
                 selectId($(this), options.id);
@@ -228,13 +228,31 @@
             }
         });
     }
-    
-     //Private: Select id
+
+    //Public method to disable dropdown
+    methods.disable = function () {
+        return this.each(function () {
+            var $this = $(this);
+
+            $this.addClass('dd-disabled');
+        });
+    };
+
+    //Public method to enable a disabled dropdown
+    methods.enable = function () {
+        return this.each(function () {
+            var $this = $(this);
+            if ($this.hasClass('dd-disabled'))
+                $this.removeClass('dd-disabled');
+        });
+    };
+
+    //Private: Select id
     function selectId(obj, id) {
-    
-       var index = obj.find(".dd-option-value[value= '" + id + "']").parents("li").prevAll().length;
-       selectIndex(obj, index);
-       
+
+        var index = obj.find(".dd-option-value[value= '" + id + "']").parents("li").prevAll().length;
+        selectIndex(obj, index);
+
     }
 
     //Private: Select index
@@ -271,7 +289,7 @@
                 );
 
         }
-            //Else only display text as selection
+        //Else only display text as selection
         else ddSelected.html(selectedData.text);
 
         //Updating selected option value
@@ -295,30 +313,31 @@
 
     //Private: Close the drop down options
     function open(obj) {
-
-        var $this = obj.find('.dd-select'),
+        if (!obj.hasClass('dd-disabled')) {
+            var $this = obj.find('.dd-select'),
             ddOptions = $this.siblings('.dd-options'),
             ddPointer = $this.find('.dd-pointer'),
             wasOpen = ddOptions.is(':visible');
 
-        //Close all open options (multiple plugins) on the page
-        $('.dd-click-off-close').not(ddOptions).slideUp(50);
-        $('.dd-pointer').removeClass('dd-pointer-up');
-        $this.removeClass('dd-open');
-
-        if (wasOpen) {
-            ddOptions.slideUp('fast');
-            ddPointer.removeClass('dd-pointer-up');
+            //Close all open options (multiple plugins) on the page
+            $('.dd-click-off-close').not(ddOptions).slideUp(50);
+            $('.dd-pointer').removeClass('dd-pointer-up');
             $this.removeClass('dd-open');
-        }
-        else {
-            $this.addClass('dd-open');
-            ddOptions.slideDown('fast');
-            ddPointer.addClass('dd-pointer-up');
-        }
 
-        //Fix text height (i.e. display title in center), if there is no description
-        adjustOptionsHeight(obj);
+            if (wasOpen) {
+                ddOptions.slideUp('fast');
+                ddPointer.removeClass('dd-pointer-up');
+                $this.removeClass('dd-open');
+            }
+            else {
+                $this.addClass('dd-open');
+                ddOptions.slideDown('fast');
+                ddPointer.addClass('dd-pointer-up');
+            }
+
+            //Fix text height (i.e. display title in center), if there is no description
+            adjustOptionsHeight(obj);
+        }
     }
 
     //Private: Close the drop down options
@@ -357,3 +376,4 @@
     }
 
 })(jQuery);
+
