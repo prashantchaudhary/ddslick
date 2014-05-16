@@ -35,7 +35,6 @@
         onSelected: function () { }
     },
 
-    ddSelectHtml = '<div class="dd-select"><input class="dd-selected-value" type="hidden" /><a class="dd-selected"></a><span class="dd-pointer dd-pointer-down"></span></div>',
     ddOptionsHtml = '<ul class="dd-options"></ul>',
 
     //CSS for ddSlick
@@ -104,6 +103,7 @@
                 obj = placeholder;
 
                 //Add classes and append ddSelectHtml & ddOptionsHtml to the container
+                ddSelectHtml = '<div class="dd-select"><input class="dd-selected-value" name="' + original.attr( "name" ) + '" type="hidden" /><a class="dd-selected"></a><span class="dd-pointer dd-pointer-down"></span></div>';
                 obj.addClass('dd-container').append(ddSelectHtml).append(ddOptionsHtml);
 
                 // Inherit name attribute from original element
