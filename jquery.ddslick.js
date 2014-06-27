@@ -50,6 +50,8 @@
                 '.dd-option{ padding:10px; display:block; border-bottom:solid 1px #ddd; overflow:hidden; text-decoration:none; color:#333; cursor:pointer;-webkit-transition: all 0.25s ease-in-out; -moz-transition: all 0.25s ease-in-out;-o-transition: all 0.25s ease-in-out;-ms-transition: all 0.25s ease-in-out; }' +
                 '.dd-options > li:last-child > .dd-option{ border-bottom:none;}' +
                 '.dd-option:hover{ background:#f3f3f3; color:#000;}' +
+                '.dd-optgroup{ padding:10px; display:block; border-bottom:solid 1px #ddd; overflow:hidden; color:#333; font-weight:bold;}' +
+                '.dd-subopt a{ padding-left: 20px;}' +
                 '.dd-selected-description-truncated { text-overflow: ellipsis; white-space:nowrap; }' +
                 '.dd-option-selected { background:#f6f6f6; }' +
                 '.dd-option-image, .dd-selected-image { vertical-align:middle; float:left; margin-right:5px; max-width:64px;}' +
@@ -81,10 +83,12 @@
                 var ddSelect = [], ddJson = options.data;
 
                 //Get data from HTML select options
-                obj.find('option').each(function () {
+                obj.find('option,optgroup').each(function () {
                     var $this = $(this), thisData = $this.data();
+
                     ddSelect.push({
-                        text: $.trim($this.text()),
+                        type: $this.is("optgroup") ? "optgrp" : ($this.parent().is("optgroup") ? "dd-subopt" : "dd-topopt"),
+                        text: $.trim($this.is("optgroup") ? $this.attr("label") : $this.text()),
                         value: $this.val(),
                         selected: $this.is(':selected'),
                         description: thisData.description,
@@ -98,7 +102,7 @@
                 else options.data = $.merge(ddSelect, options.data);
 
                 //Replace HTML select with empty placeholder, keep the original
-                var original = obj, placeholder = $('<div').attr('id', obj.attr('id') + '-dd-placeholder');
+                var original = obj, placeholder = $('<div>').attr('id', obj.attr('id') + '-dd-placeholder');
                 obj.replaceWith(placeholder);
                 obj = placeholder;
 
@@ -126,13 +130,13 @@
                 //Add ddOptions to the container. Replace with template engine later.
                 $.each(options.data, function (index, item) {
                     if (item.selected) options.defaultSelectedIndex = index;
-                    ddOptions.append('<li>' +
-                        '<a class="dd-option">' +
+                    ddOptions.append('<li class="' + item.type + '">' +
+                        (item.type != 'optgrp' ? '<a class="dd-option">' : '<div class="dd-optgroup">') +
                             (item.value ? ' <input class="dd-option-value" type="hidden" value="' + item.value + '" />' : '') +
                             (item.imageSrc ? ' <img class="dd-option-image' + (options.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + item.imageSrc + '" />' : '') +
                             (item.text ? ' <label class="dd-option-text">' + item.text + '</label>' : '') +
                             (item.description ? ' <small class="dd-option-description dd-desc">' + item.description + '</small>' : '') +
-                        '</a>' +
+                        (item.type != 'dd-optgrp' ? '</a>' : '</div>') +
                     '</li>');
                 });
 
@@ -154,6 +158,7 @@
                     var index = (options.defaultSelectedIndex != null && options.defaultSelectedIndex >= 0 && options.defaultSelectedIndex < options.data.length)
                                 ? options.defaultSelectedIndex
                                 : 0;
+
                     selectIndex(obj, index);
                 }
 
@@ -184,6 +189,7 @@
     //Public method to select an option by its index
     methods.select = function (options) {
         return this.each(function () {
+            alert(options.index);
             if (options.index!==undefined)
                 selectIndex($(this), options.index);
             if (options.id)
@@ -248,7 +254,7 @@
             ddSelectedValue = ddSelected.siblings('.dd-selected-value'),
             ddOptions = obj.find('.dd-options'),
             ddPointer = ddSelected.siblings('.dd-pointer'),
-            selectedOption = obj.find('.dd-option').eq(index),
+            selectedOption = obj.find('.dd-option,.dd-optgroup').eq(index),
             selectedLiItem = selectedOption.closest('li'),
             settings = pluginData.settings,
             selectedData = pluginData.settings.data[index];
