@@ -365,7 +365,7 @@
         obj.find('.dd-option').each(function (index, item) {
             totalHeight += item.offsetHeight;
         });
-        if (totalHeight + obj.offset().top > $(window).height() ){
+        if (totalHeight + obj.offset().top + obj.height() > $(window).height() ){
             obj.find('.dd-options').addClass('dd-selected-open-up');
         }else{
             obj.find('.dd-options').removeClass('dd-selected-open-up');
