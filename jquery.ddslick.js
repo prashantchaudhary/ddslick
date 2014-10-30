@@ -43,6 +43,7 @@
                 '.dd-select{ border-radius:2px; border:solid 1px #ccc; position:relative; cursor:pointer;}' +
                 '.dd-desc { color:#aaa; display:block; overflow: hidden; font-weight:normal; line-height: 1.4em; }' +
                 '.dd-selected{ overflow:hidden; display:block; padding:10px; font-weight:bold;}' +
+                '.dd-selected-open-up { bottom:100%; }' +
                 '.dd-pointer{ width:0; height:0; position:absolute; right:10px; top:50%; margin-top:-3px;}' +
                 '.dd-pointer-down{ border:solid 5px transparent; border-top:solid 5px #000; }' +
                 '.dd-pointer-up{border:solid 5px transparent !important; border-bottom:solid 5px #000 !important; margin-top:-8px;}' +
@@ -287,6 +288,9 @@
         //Adjust appearence for selected option
         adjustSelectedHeight(obj);
 
+	//Decide open ddselect up or down
+        adjustSelectedOrientation(obj);
+
         //Callback function on selection
         if (typeof settings.onSelected == 'function') {
             settings.onSelected.call(this, pluginData);
@@ -354,6 +358,18 @@
                 $this.find('.dd-option-text').css('lineHeight', lOHeight);
             }
         });
+    }
+    
+    function adjustSelectedOrientation(obj){
+        var totalHeight = 0;
+        obj.find('.dd-option').each(function (index, item) {
+            totalHeight += item.offsetHeight;
+        });
+        if (totalHeight + obj.offset().top + obj.height() > $(window).height() ){
+            obj.find('.dd-options').addClass('dd-selected-open-up');
+        }else{
+            obj.find('.dd-options').removeClass('dd-selected-open-up');
+        }
     }
 
 })(jQuery);
