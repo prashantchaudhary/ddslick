@@ -1,4 +1,4 @@
-﻿//Title: Custom DropDown plugin by PC
+//Title: Custom DropDown plugin by PC
 //Documentation: http://designwithpc.com/Plugins/ddslick
 //Author: PC 
 //Website: http://designwithpc.com
@@ -7,6 +7,7 @@
 (function ($) {
 
     $.fn.ddslick = function (method) {
+        
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
@@ -98,7 +99,7 @@
                 else options.data = $.merge(ddSelect, options.data);
 
                 //Replace HTML select with empty placeholder, keep the original
-                var original = obj, placeholder = $('<div').attr('id', obj.attr('id') + '-dd-placeholder');
+                var original = obj, placeholder = $('<div>').attr('id', obj.attr('id'));
                 obj.replaceWith(placeholder);
                 obj = placeholder;
 
