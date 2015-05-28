@@ -54,7 +54,10 @@
                 '.dd-option-selected { background:#f6f6f6; }' +
                 '.dd-option-image, .dd-selected-image { vertical-align:middle; float:left; margin-right:5px; max-width:64px;}' +
                 '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
-                '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
+                '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>'
+        
+        , bodyClickOnceInit
+        ;
 
     //Public methods 
     methods.init = function (userOptions) {
@@ -172,10 +175,13 @@
                 if (options.clickOffToClose) {
                     ddOptions.addClass('dd-click-off-close');
                     obj.on('click.ddslick', function (e) { e.stopPropagation(); });
-                    $('body').on('click', function () {
-                    $('.dd-open').removeClass('dd-open');
-                        $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
-                    });
+                    if (!bodyClickOnceInit) {
+                    	bodyClickOnceInit = true;
+                    	&& $('body').on('click.ddslick', function () {
+                    		$('.dd-open').removeClass('dd-open');
+                        	$('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
+                    	});
+                    }
                 }
             }
         });
