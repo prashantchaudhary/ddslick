@@ -177,7 +177,7 @@
                     obj.on('click.ddslick', function (e) { e.stopPropagation(); });
                     if (!bodyClickOnceInit) {
                     	bodyClickOnceInit = true;
-                    	&& $('body').on('click.ddslick', function () {
+                    	$('body').on('click.ddslick', function () {
                     		$('.dd-open').removeClass('dd-open');
                         	$('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
                     	});
