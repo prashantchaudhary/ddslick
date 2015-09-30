@@ -169,10 +169,11 @@
                 //Click anywhere to close
                 if (options.clickOffToClose) {
                     ddOptions.addClass('dd-click-off-close');
-                    obj.on('click.ddslick', function (e) { e.stopPropagation(); });
-                    $('body').on('click', function () {
-                    $('.dd-open').removeClass('dd-open');
+                    $('body').on('click', function (e) {
+                      if (e.target.className.indexOf('dd-select') === -1 && $(e.target).parent('.dd-select').length === 0) {
+                        $('.dd-open').removeClass('dd-open');
                         $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
+                      }
                     });
                 }
             }
