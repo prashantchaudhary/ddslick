@@ -170,7 +170,7 @@
                 if (options.clickOffToClose) {
                     ddOptions.addClass('dd-click-off-close');
                     $('body').on('click', function (e) {
-                      if (e.target.className.indexOf('dd-select') === -1 && $(e.target).parents('.dd-select').length === 0) {
+                      if (e.target.className.indexOf && e.target.className.indexOf('dd-select') === -1 && $(e.target).parents('.dd-select').length === 0) {
                         $('.dd-open').removeClass('dd-open');
                         $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
                       }
