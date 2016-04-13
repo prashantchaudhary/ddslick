@@ -1,6 +1,6 @@
 ﻿//Title: Custom DropDown plugin by PC
 //Documentation: http://designwithpc.com/Plugins/ddslick
-//Author: PC 
+//Author: PC
 //Website: http://designwithpc.com
 //Twitter: http://twitter.com/chaudharyp
 
@@ -56,12 +56,12 @@
                 '.dd-image-right { float:right; margin-right:15px; margin-left:5px;}' +
                 '.dd-container{ position:relative;}​ .dd-selected-text { font-weight:bold}​</style>';
 
-    //Public methods 
+    //Public methods
     methods.init = function (options) {
         //Preserve the original defaults by passing an empty object as the target
         //The object is used to get global flags like embedCSS.
         var options = $.extend({}, defaults, options);
-        
+
         //CSS styles are only added once.
 	    if ($('#css-ddslick').length <= 0 && options.embedCSS) {
 	        $(ddslickCSS).appendTo('head');
@@ -69,10 +69,10 @@
 
         //Apply on all selected elements
         return this.each(function () {
-            //Preserve the original defaults by passing an empty object as the target 
+            //Preserve the original defaults by passing an empty object as the target
             //The object is used to save drop-down's corresponding settings and data.
             var options = $.extend({}, defaults, options);
-            
+
             var obj = $(this),
                 data = obj.data('ddslick');
             //If the plugin has not been initialized yet
@@ -172,7 +172,7 @@
                     $('body').on('click', function (e) {
                       if (e.target.className.indexOf && e.target.className.indexOf('dd-select') === -1 && $(e.target).parents('.dd-select').length === 0) {
                         $('.dd-open').removeClass('dd-open');
-                        $('.dd-click-off-close').slideUp(50).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
+                        $('.dd-click-off-close').slideUp().siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
                       }
                     });
                 }
@@ -227,13 +227,13 @@
             }
         });
     }
-    
+
      //Private: Select id
     function selectId(obj, id) {
-    
+
        var index = obj.find(".dd-option-value[value= '" + id + "']").parents("li").prevAll().length;
        selectIndex(obj, index);
-       
+
     }
 
     //Private: Select index
@@ -301,18 +301,18 @@
             wasOpen = ddOptions.is(':visible');
 
         //Close all open options (multiple plugins) on the page
-        $('.dd-click-off-close').not(ddOptions).slideUp(50);
+        $('.dd-click-off-close').not(ddOptions).slideUp();
         $('.dd-pointer').removeClass('dd-pointer-up');
         $this.removeClass('dd-open');
 
         if (wasOpen) {
-            ddOptions.slideUp('fast');
+            ddOptions.slideUp('');
             ddPointer.removeClass('dd-pointer-up');
             $this.removeClass('dd-open');
         }
         else {
             $this.addClass('dd-open');
-            ddOptions.slideDown('fast');
+            ddOptions.slideDown('');
             ddPointer.addClass('dd-pointer-up');
         }
 
@@ -324,7 +324,7 @@
     function close(obj) {
         //Close drop down and adjust pointer direction
         obj.find('.dd-select').removeClass('dd-open');
-        obj.find('.dd-options').slideUp(50);
+        obj.find('.dd-options').slideUp();
         obj.find('.dd-pointer').removeClass('dd-pointer-up').removeClass('dd-pointer-up');
     }
 
