@@ -172,7 +172,7 @@
                     $('body').on('click', function (e) {
                       if (e.target.className.indexOf && e.target.className.indexOf('dd-select') === -1 && $(e.target).parents('.dd-select').length === 0) {
                         $('.dd-open').removeClass('dd-open');
-                        $('.dd-click-off-close').slideUp().siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
+                        $('.dd-click-off-close').slideUp(0).siblings('.dd-select').find('.dd-pointer').removeClass('dd-pointer-up');
                       }
                     });
                 }
@@ -301,18 +301,18 @@
             wasOpen = ddOptions.is(':visible');
 
         //Close all open options (multiple plugins) on the page
-        $('.dd-click-off-close').not(ddOptions).slideUp();
+        $('.dd-click-off-close').not(ddOptions).slideUp(0);
         $('.dd-pointer').removeClass('dd-pointer-up');
         $this.removeClass('dd-open');
 
         if (wasOpen) {
-            ddOptions.slideUp('');
+            ddOptions.slideUp(0);
             ddPointer.removeClass('dd-pointer-up');
             $this.removeClass('dd-open');
         }
         else {
             $this.addClass('dd-open');
-            ddOptions.slideDown('');
+            ddOptions.slideDown(0);
             ddPointer.addClass('dd-pointer-up');
         }
 
@@ -324,7 +324,7 @@
     function close(obj) {
         //Close drop down and adjust pointer direction
         obj.find('.dd-select').removeClass('dd-open');
-        obj.find('.dd-options').slideUp();
+        obj.find('.dd-options').slideUp(0);
         obj.find('.dd-pointer').removeClass('dd-pointer-up').removeClass('dd-pointer-up');
     }
 
