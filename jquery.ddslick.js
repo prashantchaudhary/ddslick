@@ -345,6 +345,7 @@
 
     //Private: Adjust appearence for drop down options (move title to middle), when no desripction
     function adjustOptionsHeight(obj) {
+	    return; //this doens't work rn... idk why
         obj.find('.dd-option').each(function () {
             var $this = $(this);
             var lOHeight = $this.css('height');
