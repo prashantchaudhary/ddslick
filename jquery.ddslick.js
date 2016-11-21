@@ -98,7 +98,7 @@
                 else options.data = $.merge(ddSelect, options.data);
 
                 //Replace HTML select with empty placeholder, keep the original
-                var original = obj, placeholder = $('<div').attr('id', obj.attr('id') + '-dd-placeholder');
+                var original = obj, placeholder = $('<div>').attr('id', obj.attr('id') + '-dd-placeholder');
                 obj.replaceWith(placeholder);
                 obj = placeholder;
 
@@ -345,6 +345,7 @@
 
     //Private: Adjust appearence for drop down options (move title to middle), when no desripction
     function adjustOptionsHeight(obj) {
+	    return; //this doens't work rn... idk why
         obj.find('.dd-option').each(function () {
             var $this = $(this);
             var lOHeight = $this.css('height');
