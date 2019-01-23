@@ -11,6 +11,7 @@ Allows JSON to populate the drop down options.
 Converts your HTML select element to ddSlick.
 Uses Minimum css and no external stylesheets to download.
 Supports callback functions on selection.
+Inherit onchange attribute from original element
 Works as good even without images or description!
 
 Why is this plugin useful:
