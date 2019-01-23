@@ -98,7 +98,7 @@
                 else options.data = $.merge(ddSelect, options.data);
 
                 //Replace HTML select with empty placeholder, keep the original
-                var original = obj, placeholder = $('<div').attr('id', obj.attr('id') + '-dd-placeholder');
+                var original = obj, placeholder = $('<div>').attr('id', obj.attr('id') + '-dd-placeholder');
                 obj.replaceWith(placeholder);
                 obj = placeholder;
 
@@ -108,6 +108,7 @@
                 // Inherit name attribute from original element
                 obj.find("input.dd-selected-value")
                     .attr("id", $(original).attr("id"))
+                    .attr("onchange", $(original).attr("onchange"))
                     .attr("name", $(original).attr("name"));
 
                 //Get newly created ddOptions and ddSelect to manipulate
@@ -165,7 +166,7 @@
 
                 //Selecting an option
                 obj.find('.dd-option').on('click.ddslick', function () {
-                    selectIndex(obj, $(this).closest('li').index());
+                    selectIndex(obj, $(this).closest('li').index(), true);
                 });
 
                 //Click anywhere to close
@@ -238,7 +239,7 @@
     }
 
     //Private: Select index
-    function selectIndex(obj, index) {
+    function selectIndex(obj, index, changed = false) {
 
         //Get plugin data
         var pluginData = obj.data('ddslick');
@@ -290,6 +291,11 @@
         //Callback function on selection
         if (typeof settings.onSelected == 'function') {
             settings.onSelected.call(this, pluginData);
+        } 
+        
+        //Trigger change
+        if (changed) {
+            ddSelectedValue.trigger('change');
         }
     }
 
