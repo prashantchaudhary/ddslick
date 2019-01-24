@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery.ddslick.js"></script>
+    <script type="text/javascript" src="data.js"></script>
+  </head>
+  <body>
+    <p>basic</p>
+    <select id="demoBasic"></select>
+    <p>create/destroy</p>
+    <select id="htmlSelect"></select>
+    <p>get selected</p>
+    <select id="demoGetSelected"></select>
+    <p>set selected</p>
+    <select id="demoSetSelected"></select>
+    <p>callback function</p>
+    <select id="demoCallback"></select>
+    <p>default selection</p>
+    <select id="demoDefaultSelection"></select>
+    <p>image right</p>
+    <select id="demoImageRight"></select>
+    <p>truncated</p>
+    <select id="demoTruncated"></select>
+    <p>no image</p>
+    <select id="demoNoImage"></select>
+    
+    <script type="text/javascript">
+      $('#demoBasic').ddslick({
+        data: ddData,
+        width: 300,
+        imagePosition: "left",
+        selectText: "Select your favorite social network"
+      });
+      $('#htmlSelect').ddslick({
+        data: ddData,
+        width: 300,
+        imagePosition: "left",
+        selectText: "Select your favorite social network"
+      });
+      $('#demoGetSelected').ddslick({
+        data: ddData,
+        width: 300,
+        imagePosition: "left",
+        selectText: "Select your favorite social network"
+      });
+      $('#demoSetSelected').ddslick({
+        data: ddData,
+        width: 300,
+        imagePosition: "left",
+        selectText: "Select your favorite social network"
+      });
+      $('#demoCallback').ddslick({
+        data: ddData,
+        width: 300,
+        imagePosition: "left",
+        selectText: "Select your favorite social network",
+        onSelected: function (data) {
+          alert(data.selectedData.text);
+        }
+      });
+      $('#demoDefaultSelection').ddslick({
+        data: ddData,
+        width: 300,
+        defaultSelectedIndex: 2,
+        imagePosition: "left",
+        selectText: "Select your favorite social network",
+        onSelected: function (data) {
+          console.log(data);
+        }
+      });
+      $('#demoImageRight').ddslick({
+        data: ddData,
+        width: 300,
+        imagePosition: "right",
+        selectText: "Select your favorite social network"
+      });
+      $('#demoTruncated').ddslick({
+        data: ddData,
+        width: 300,
+        imagePosition: "left",
+        selectText: "Select your favorite social network"
+      });
+      $('#demoNoImage').ddslick({
+        data: ddBasic,
+        width: 300,
+        imagePosition: "left",
+        selectText: "Select your favorite social network"
+      });
+    </script>
+  </body>
+</html>

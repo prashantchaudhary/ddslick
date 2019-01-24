@@ -1,8 +1,13 @@
-﻿//Title: Custom DropDown plugin by PC
-//Documentation: http://designwithpc.com/Plugins/ddslick
-//Author: PC 
-//Website: http://designwithpc.com
-//Twitter: http://twitter.com/chaudharyp
+﻿/**
+ * original by Prashant Chaudhary
+ * github   : https://github.com/prashantchaudhary
+ * website  : http://designwithpc.com/Plugins/ddSlick
+ * source   : https://github.com/prashantchaudhary/ddslick
+ * 
+ * comments by creator regarding licensing https://github.com/prashantchaudhary/ddslick/issues/39
+ * https://web.archive.org/web/20180109091745/https://github.com/prashantchaudhary/ddslick/issues/39
+ * 
+ */
 
 (function ($) {
 
